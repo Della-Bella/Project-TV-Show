@@ -1,54 +1,35 @@
-//You can edit ALL of the code here
-/*function setup() {
-  const allEpisodes = getAllEpisodes();
-  makePageForEpisodes(allEpisodes);
-}
-
-function makePageForEpisodes(episodeList) {
-  const rootElem = document.getElementById("root");
-  rootElem.textContent = `Got ${episodeList.length} episode(s)`;
-}
-
-window.onload = setup;*/
+//REFACTORING THE CODE!!
 
 // Function to display episodes
 function displayEpisodes(episodes) {
-  const episodesContainer = document.getElementById("episodes"); // place for episodes "div"
+  const episodesContainer = document.getElementById("root"); // The div where episodes will be displayed
+  episodesContainer.innerHTML = ""; // Clear any previous content
 
-  // Clear initial content
-  episodesContainer.innerHTML = ""; // clear content of the div episodes
+  // Get the template for the episode card
+  const template = document.getElementById("film-card");
 
   // Loop through each episode and create a card
   episodes.forEach((episode) => {
-    // Create a container for the episode card
-    const episodeCard = document.createElement("div");
-    episodeCard.classList.add("episodes-card");
+    // Clone the template to create a new episode card
+    const episodeCard = template.content.cloneNode(true);
 
-    // Create title
-    const title = document.createElement("h2");
-    title.textContent = `${episode.name} (S0${episode.season}E0${episode.number})`;
+    // Set the content for each card element
+    episodeCard.querySelector(".name").textContent = episode.name;
+    episodeCard.querySelector(".season").textContent = `S0${episode.season}E0${episode.number}`;
+    episodeCard.querySelector(".image-medium").src = episode.image.medium;
+    episodeCard.querySelector(".image-medium").alt = `Image of ${episode.name}`;
+    episodeCard.querySelector(".summary").innerHTML = episode.summary;
+    
 
-    // Create the image
-    const img = document.createElement("img");
-    img.src = episode.image.medium;
-    img.alt = episode.name;
-
-    // Create the description
-    const description = document.createElement("p");
-    description.textContent = episode.summary.replace(/<[^>]+>/g, ""); // Removes HTML tags from the summary
-
-    // Append elements to the episode card
-    episodeCard.appendChild(img);
-    episodeCard.appendChild(title);
-    episodeCard.appendChild(description);
-
-    // Append the episode card to the episodes container
+    // Append the episode card to the container
     episodesContainer.appendChild(episodeCard);
   });
 }
 
-// Call the provided getAllEpisodes() function to get the episodes
-const episodes = getAllEpisodes(); //function in `episodes.js`
+// Example of how you could fetch or get the episodes
+document.addEventListener("DOMContentLoaded", () => {
+  const episodes = getAllEpisodes();  // Assuming getAllEpisodes() provides the data
+  displayEpisodes(episodes); // Call the function to display episodes
+});
 
-// Display the episodes
-displayEpisodes(episodes);
+

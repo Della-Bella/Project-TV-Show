@@ -1,9 +1,29 @@
+.roboto-regular {
+  font-family: "Roboto", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.roboto-medium-italic {
+  font-family: "Roboto", serif;
+  font-weight: 500;
+  font-style: italic;
+}
+
+.roboto-bold-italic {
+  font-family: "Roboto", serif;
+  font-weight: 700;
+  font-style: italic;
+}
 #root {
   color: rgb(255, 234, 4);
+  font-size: 20px;
 }
 
 body {
-  font-family: Arial, sans-serif;
+  font-family: "Roboto", serif;
+  font-weight: 400;
+  font-style: normal;
   margin: 0;
   padding: 0;
   background-color: #ffffff;
@@ -16,17 +36,17 @@ header {
   padding: 60px 0;
 }
 
-#episodes {
+#root {
   display: grid;
   grid-template-columns: repeat(3, 1fr); /* 3 columns = width */
   gap: 20px; /* Space between cards */
   padding: 20px;
   max-width: 1200px;
-  margin: 0 auto; 
+  margin: 0 auto;
 }
 
-.episodes-card {
-  background-color: rgb(2, 2, 2);
+.film-card {
+  background-color: rgb(23, 23, 23);
   border: 1px solid #ddd;
   border-radius: 8px;
   box-shadow: 0 2px 5px rgba(83, 82, 82, 0.1);
@@ -37,18 +57,24 @@ header {
   padding: 10px;
 }
 
-.episodes-card img {
+.film-card img {
   max-width: 100%;
   height: auto;
   border-bottom: 1px solid #ddd;
 }
 
-.episodes-card h2 {
-  font-size: 1.2rem;
+.film-card h2 {
+  font-family: "Roboto", serif;
+  font-weight: 500;
+  font-style: italic;
   margin: 10px 0;
 }
 
-.episodes-card p {
-  font-size: 1rem;
-  color: #555;
+.film-card p {
+  font-size: 1.1rem;
+  color: #ffffff;
+}
+
+.film-card h3 {
+  color: rgb(249, 237, 105);
 }
