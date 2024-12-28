@@ -1,3 +1,54 @@
 #root {
-  color: red;
+  color: rgb(255, 234, 4);
+}
+
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #ffffff;
+}
+
+header {
+  background-color: #000000;
+  color: white;
+  text-align: center;
+  padding: 60px 0;
+}
+
+#episodes {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 3 columns = width */
+  gap: 20px; /* Space between cards */
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto; 
+}
+
+.episodes-card {
+  background-color: rgb(2, 2, 2);
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(83, 82, 82, 0.1);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  padding: 10px;
+}
+
+.episodes-card img {
+  max-width: 100%;
+  height: auto;
+  border-bottom: 1px solid #ddd;
+}
+
+.episodes-card h2 {
+  font-size: 1.2rem;
+  margin: 10px 0;
+}
+
+.episodes-card p {
+  font-size: 1rem;
+  color: #555;
 }
