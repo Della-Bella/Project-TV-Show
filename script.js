@@ -13,7 +13,7 @@ function displayEpisodes(episodes) {
     // Clone the template to create a new episode card
     const episodeCard = template.content.cloneNode(true);
 
-    // Set the content for each card element
+    // Set content for card element
     episodeCard.querySelector(".name").textContent = episode.name;
     episodeCard.querySelector(".season").textContent = `S0${episode.season}E0${episode.number}`;
     episodeCard.querySelector(".image-medium").src = episode.image.medium;
@@ -26,10 +26,10 @@ function displayEpisodes(episodes) {
   });
 }
 
-// Example of how you could fetch or get the episodes
+//get episodes
 document.addEventListener("DOMContentLoaded", () => {
-  const episodes = getAllEpisodes();  // Assuming getAllEpisodes() provides the data
-  displayEpisodes(episodes); // Call the function to display episodes
+  const episodes = getAllEpisodes();  //  getAllEpisodes() to show the  data
+  displayEpisodes(episodes); // Call the function 
 });
 
 
