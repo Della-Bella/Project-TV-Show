@@ -1,46 +1,45 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>TV Show Project | Della Bella</title>
-    <link href="style.css" rel="stylesheet" />
-    <link rel="icon" href="/favicon.ico" type="image/x-icon" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
-  </head>
+   <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <title>TV Show Project | Della Bella</title>
+      <link href="style.css" rel="stylesheet" />
+      <link rel="icon" href="/favicon.ico" type="image/x-icon" />
+      <link rel="preconnect" href="https://fonts.googleapis.com" />
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+      <link rel="preconnect" href="https://fonts.googleapis.com" />
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+      <link
+         href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+         rel="stylesheet"
+      />
+   </head>
 
-  <body>
-    <header>
-      <h1>Explore Your Favourites TV Show Episodes</h1>
-    </header>
-    <main>
-      
-    </main>
-    <div id="root"></div>
+   <body>
+      <header>
+         <h1>Explore Your Favourites TV Show Episodes</h1>
+      </header>
+      <main>
+         <div id="root"></div>
+         <div>
+            <!-- Template Card -->
+            <template id="film-card">
+               <section class="film-card">
+                  <h2 class="name">Film title</h2> 
+                  <h3 class="season">season</h3>
+                  <img class="image-medium" src="" alt="Episode Image"/>
+                   <a id= "btn-info" class="url" target="_blank"> + INFO</a>
+                  <p class="summary">Description</p>
+               </section>
+            </template>
+            <!-- End Template Card -->
+         </div>
+      </main>
 
-      <div >
-      <!-- Template Card -->
-  <template id="film-card">
-
-    <section class="film-card">
-      <h2 class="name">Film title</h2>
-      <h3 class="season">season</h3>
-      <img class="image-medium" src="" alt="Episode Image">
-      <p class="summary">Description</p>
-      
-    </section>
-    <!-- End Template Card -->
-  </template>
-</div>
-
-    <!-- Loads a provided function called getAllEpisodes() which returns all episodes -->
-    <script src="episodes.js"></script>
-
-    <!-- Loads YOUR javascript code -->
-    <script src="script.js"></script>
-  </body>
+      <!-- Loads a provided function called getAllEpisodes() which returns all episodes -->
+      <script src="episodes.js"></script>
+      <!-- Loads YOUR javascript code -->
+      <script src="script.js"></script>
+   </body>
 </html>
