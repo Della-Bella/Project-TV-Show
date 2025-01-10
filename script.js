@@ -25,7 +25,7 @@ function displayEpisodes(episodes) {
       // episodeCard.querySelector(".url")
     episodeCard.querySelector(".url").href = episode.url;
 
-      episodeCard.querySelector(".summary").textContent = episode.summary;
+      episodeCard.querySelector(".summary").innerHTML = episode.summary;
    
       // Append the episode card to the container
   
