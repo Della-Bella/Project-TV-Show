@@ -16,7 +16,7 @@ function displayEpisodes(episodes) {
       // Set content forcard element
       episodeCard.querySelector(".name").textContent = episode.name;
       episodeCard.querySelector(".season").textContent =
-         `S0${episode.season}E0${episode.number}`;
+         `S${String(episode.season).padStart(2, "0")}E${String(episode.number).padStart(2, "0")}`;
       episodeCard.querySelector(".image-medium").src = episode.image.medium;
       episodeCard.querySelector(".image-medium").alt =
          `Image of ${episode.name}`;
