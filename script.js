@@ -1,9 +1,13 @@
 //REFACTORING THE CODE!!
 
 // Function to display episodes
-function displayEpisodes(episodes) {
+/*function displayEpisodes(episodes) {
    const episodesContainer = document.getElementById("root"); // The div where episodes will be displayed
-   episodesContainer.innerHTML = ""; // Clear any previous content
+   episodesContainer.innerHTML = ""; // Clear any previous content*/
+
+   document.addEventListener("DOMContentLoaded", () => {
+   const apiUrl = "https://api.tvmaze.com/shows/82/episodes";
+
 
    // Get the template for the episode card
    const template = document.getElementById("film-card");
