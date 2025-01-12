@@ -1,47 +1,70 @@
 //REFACTORING THE CODE!!
 
-// Function to display episodes
-/*function displayEpisodes(episodes) {
-   const episodesContainer = document.getElementById("root"); // The div where episodes will be displayed
-   episodesContainer.innerHTML = ""; // Clear any previous content*/
+   let currentEpisodes = []; // Store the currently selected episodes globally
 
    document.addEventListener("DOMContentLoaded", () => {
-      const apiUrl = "https://api.tvmaze.com/shows/82/episodes";
+      fetchAndDisplayShows(); // Fetch and populate the TV show dropdown
+      handleShowSelection(); // Handle the user's TV show selection
 
-      // Fetch episodes from the API
-      fetch(apiUrl)
-         .then((response) => {
-            if (!response.ok) {
-               throw new Error(`HTTP error! Status: ${response.status}`);
-            }
-            return response.json();
-         })
-         .then((episodes) => {
-            // Display all episodes
-            displayEpisodes(episodes);
-
-            // Update episode count
-            updateEpisodeCount(episodes.length, episodes.length);
-
-            // dropdown
-            populateEpisodeDropdown(episodes);
-
-            //search
-            const searchInput = document.getElementById("search-box");
-            searchInput.addEventListener("input", (event) => {
-               const searchTerm = event.target.value;
-               const filteredEpisodes = filterEpisodes(episodes, searchTerm);
-               displayEpisodes(filteredEpisodes);
-               updateEpisodeCount(filteredEpisodes.length, episodes.length);
-            });
-
-            // dropdown 
-            handleDropdownSelection(episodes);
-         })
-         .catch((error) => {
-            console.error("Error fetching episodes:", error);
-         });
+      //search
+      const searchInput = document.getElementById("search-box");
+      searchInput.addEventListener("input", (event) => {
+         const searchTerm = event.target.value;
+         const filteredEpisodes = filterEpisodes(currentEpisodes, searchTerm);
+         displayEpisodes(filteredEpisodes);
+         updateEpisodeCount(filteredEpisodes.length, currentEpisodes.length);
+      });
    });
+  
+   // Fetch all TV shows and populate the show dropdown
+   function fetchAndDisplayShows() {
+   const apiUrl = "https://api.tvmaze.com/shows";
+
+   fetch(apiUrl)
+      .then((response) => response.json())
+      .then((shows) => {
+         shows.sort((a, b) => a.name.toLowerCase().localeCompare(b.name.toLowerCase()));
+         populateShowDropdown(shows);
+      })
+      .catch((error) => {
+         console.error("Error fetching shows:", error);
+      });
+   }
+
+   // Populate the TV show dropdown with fetched data
+   function populateShowDropdown(shows) {
+      const showDropdown = document.getElementById("show-dropdown");
+      shows.forEach((show) => {
+         const option = document.createElement("option");
+         option.value = show.id;
+         option.textContent = show.name;
+         showDropdown.appendChild(option);
+      });
+   }
+
+   // Handle TV show selection and fetch episodes for the selected show
+   function handleShowSelection() {
+      const showDropdown = document.getElementById("show-dropdown");
+
+      showDropdown.addEventListener("change", (event) => {
+         const selectedShowId = event.target.value;
+         if (selectedShowId === "default") return;
+
+         const apiUrl = `https://api.tvmaze.com/shows/${selectedShowId}/episodes`;
+
+         fetch(apiUrl)
+            .then((response) => response.json())
+            .then((episodes) => {
+               currentEpisodes = episodes; // Store the fetched episodes globally
+               displayEpisodes(episodes);
+               updateEpisodeCount(episodes.length, episodes.length);
+               populateEpisodeDropdown(episodes);
+            })
+            .catch((error) => {
+               console.error("Error fetching episodes:", error);
+            });
+      });
+   }
 
    function displayEpisodes(episodes) {
       const episodesContainer = document.getElementById("root"); 
@@ -90,7 +113,7 @@
 
    function populateEpisodeDropdown(episodes) {
       const dropdown = document.getElementById("episode-dropdown");
-      dropdown.innerHTML = "";
+      dropdown.innerHTML = `<option value="all">Show All Episodes</option>`;
 
       //  "Show All Episodes" 
       const defaultOption = document.createElement("option");
@@ -105,6 +128,8 @@
          option.textContent = `S${String(episode.season).padStart(2, "0")}E${String(episode.number).padStart(2, "0")} - ${episode.name}`;
          dropdown.appendChild(option);
       });
+
+      handleDropdownSelection(episodes);
    }
 
    function handleDropdownSelection(episodes) {
