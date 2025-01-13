@@ -17,38 +17,45 @@
    </head>
 
    <body>
-      <header>
-         <h1>Explore Your Favourites TV Show Episodes</h1>
-         <div>
-            <input type="text" id="search-box" placeholder="Search episodes..." aria-label="Search episodes" />
-         </div>
-         <p id="episode-count"></p>
-         <label>Select a TV Show:</label>
-         <select id="show-dropdown">
-            <option value="default">Select a TV Show</option>
-         </select>
-         <div>
-            <label for="episode-dropdown">Jump to Episode:</label>
-            <select id="episode-dropdown"></select>
-         </div>
-         <p id="episode-count"></p>
-      </header>
-      <main>
-         <div id="root"></div>
-         <div>
-            <!-- Template Card -->
-            <template id="film-card">
-               <section class="film-card">
-                  <h2 class="name">Film title</h2> 
-                  <h3 class="season">season</h3>
-                  <img class="image-medium" src="" alt="Episode Image"/>
-                   <a id= "btn-info" class="url" target="_blank"> + INFO</a>
-                  <p class="summary">Description</p>
-               </section>
-            </template>
-            <!-- End Template Card -->
-         </div>
-      </main>
+  <header>
+   <div class="hero-image">
+    <h1>Featured Today TV Show Episodes</h1>
+    </div>
+    <div class="inp-searchs">
+      <input type="text" id="search-box" placeholder="Search episodes..." aria-label="Search episodes" />
+    <p id="episode-count"></p>
+    <label>Select a TV Show:</label>
+    <select id="show-dropdown">
+      <option value="default">Select a TV Show</option>
+    </select>
+      <label for="episode-dropdown">Jump to Episode:</label>
+      <select id="episode-dropdown"></select>
+    </div>
+    <p id="episode-count"></p>
+  </header>
+  <main>
+    <section id="shows-list"></section> <div id="root"></div>
+    <div>
+      <template id="film-card">
+        <section class="film-card">
+          <h2 class="name">Film title</h2>
+          <h3 class="season">season</h3>
+          <img class="image-medium" src="" alt="Episode Image" />
+          <a id="btn-info" class="url" target="_blank"> + INFO</a>
+          <p class="summary">Description</p>
+          <div>
+            <div class="show-info">
+        <p><strong>Genres:</strong> <span class="show-genres"></span></p>
+        <p><strong>Status:</strong> <span class="show-status"></span></p>
+        <p><strong>Rating:</strong> <span class="show-rating"></span></p>
+        <p><strong>Runtime:</strong> <span class="show-runtime"></span> minutes</p>
+      </div>
+          </div>
+        </section>
+      </template>
+      </div>
+  </main>
+
 
       <!-- Loads a provided function called getAllEpisodes() which returns all episodes -->
       <script src="episodes.js"></script>

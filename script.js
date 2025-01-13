@@ -1,10 +1,65 @@
 //REFACTORING THE CODE!!
 
-   let currentEpisodes = []; // Store the currently selected episodes globally
+let currentEpisodes = []; // Store the currently selected episodes globally
+let showCache = {}; // Cache for fetched shows
 
-   document.addEventListener("DOMContentLoaded", () => {
-      fetchAndDisplayShows(); // Fetch and populate the TV show dropdown
-      handleShowSelection(); // Handle the user's TV show selection
+
+window.onload = setup;
+
+function setup() {
+   fetchAndDisplayShows();
+   handleShowSelection();
+   handleSearch();
+}
+
+async function fetchAndDisplayShows() {
+   const apiUrl = "https://api.tvmaze.com/shows";
+
+   try {
+      const response = await fetch(apiUrl);
+      const shows = await response.json();
+      shows.sort((a, b) =>
+         a.name.toLowerCase().localeCompare(b.name.toLowerCase())
+      );
+      populateShowDropdown(shows);
+      displayShows(shows); // Display shows listing on app start
+   } catch (error) {
+      console.error("Error fetching shows:", error);
+      // Handle error gracefully (e.g., display an error message to the user)
+      displayErrorMessage("Error fetching shows. Please try again later.");
+   }
+}
+
+function displayShows(shows) {
+   const showsContainer = document.getElementById("root");
+   showsContainer.innerHTML = "";
+
+   const template = document.getElementById("film-card");
+
+   shows.forEach((show) => {
+      // Clone the template to create a new card element
+      const episodeCard = template.content.cloneNode(true);
+
+      // Update card elements with show information
+      episodeCard.querySelector(".name").textContent = show.name;
+      episodeCard.querySelector(".season").textContent = ""; // Update if season info available
+      episodeCard.querySelector(".image-medium").src =
+         show.image?.medium || "placeholder.jpg";
+      episodeCard.querySelector(".image-medium").alt = `Image of ${show.name}`;
+      episodeCard.querySelector(".url").href = ""; // Update if show URL available
+      episodeCard.querySelector(".summary").textContent = ""; // Update if show summary available
+        episodeCard.querySelector(".show-genres").textContent =
+           show.genres.join(", ");
+      episodeCard.querySelector(".show-status").textContent = show.status;
+      episodeCard.querySelector(".show-rating").textContent =
+         show.rating.average || "N/A";
+     episodeCard.querySelector(".show-runtime").textContent =
+        show.runtime || "N/A";
+
+      // Append the new card to the container
+      showsContainer.appendChild(episodeCard);
+   });
+}
 
       //search
       const searchInput = document.getElementById("search-box");
@@ -14,22 +69,25 @@
          displayEpisodes(filteredEpisodes);
          updateEpisodeCount(filteredEpisodes.length, currentEpisodes.length);
       });
-   });
+   
   
    // Fetch all TV shows and populate the show dropdown
-   function fetchAndDisplayShows() {
-   const apiUrl = "https://api.tvmaze.com/shows";
+  async function fetchAndDisplayShows() {
+     const apiUrl = "https://api.tvmaze.com/shows";
 
-   fetch(apiUrl)
-      .then((response) => response.json())
-      .then((shows) => {
-         shows.sort((a, b) => a.name.toLowerCase().localeCompare(b.name.toLowerCase()));
-         populateShowDropdown(shows);
-      })
-      .catch((error) => {
-         console.error("Error fetching shows:", error);
-      });
-   }
+     try {
+        const response = await fetch(apiUrl);
+        const shows = await response.json();
+        shows.sort((a, b) =>
+           a.name.toLowerCase().localeCompare(b.name.toLowerCase())
+        );
+        populateShowDropdown(shows);
+        displayShows(shows); // Display shows listing on app start
+     } catch (error) {
+        console.error("Error fetching shows:", error);
+     }
+  }
+ 
 
    // Populate the TV show dropdown with fetched data
    function populateShowDropdown(shows) {
@@ -55,7 +113,7 @@
          fetch(apiUrl)
             .then((response) => response.json())
             .then((episodes) => {
-               currentEpisodes = episodes; // Store the fetched episodes globally
+               currentEpisodes = episodes; 
                displayEpisodes(episodes);
                updateEpisodeCount(episodes.length, episodes.length);
                populateEpisodeDropdown(episodes);
@@ -82,13 +140,17 @@
          episodeCard.querySelector(".name").textContent = episode.name;
          episodeCard.querySelector(".season").textContent =
             `S${String(episode.season).padStart(2, "0")}E${String(episode.number).padStart(2, "0")}`;
-         episodeCard.querySelector(".image-medium").src =
-            episode.image?.medium || "placeholder.jpg"; 
-         episodeCard.querySelector(".image-medium").alt =
-            `Image of ${episode.name}`;
+         episodeCard.querySelector(".image-medium").src = episode.image?.medium || "placeholder.jpg"; 
+         episodeCard.querySelector(".image-medium").alt = `Image of ${episode.name}`;
          episodeCard.querySelector(".url").href = episode.url;
-         episodeCard.querySelector(".summary").innerHTML =
-            episode.summary || "No description available.";
+         episodeCard.querySelector(".summary").innerHTML = episode.summary || "No description available.";
+         episodeCard.querySelector(".show-genres").textContent = show.genres.join(", ");
+         episodeCard.querySelector(".show-status").textContent =
+                 show.status;
+              episodeCard.querySelector(".show-rating").textContent =
+                 show.rating.average || "N/A";
+              episodeCard.querySelector(".show-runtime").textContent =
+                 show.runtime || "N/A";
 
          // Create episode card to the container
          episodesContainer.appendChild(episodeCard);
@@ -151,3 +213,5 @@
          }
       });
    }
+
+window.onload = setup;
