@@ -92,7 +92,7 @@ function displayShows(shows) {
 async function fetchAndDisplayEpisodes(showId, show) {
     document.getElementById("shows-list").style.display = 'none';
   document.getElementById("root").style.display = 'grid';
-    document.getElementById("show-search-box").style.display = 'flex';
+   // document.getElementById("show-search-box").style.display = 'flex';
   document.getElementById("search-box").style.display = 'flex';
  document.getElementById("show-list-btn").style.display = 'inline-block';
    if (showCache[showId]) {
