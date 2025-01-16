@@ -12,8 +12,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
         href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
-        rel="stylesheet"
-    />
+        rel="stylesheet" />
 </head>
 
 <body>
@@ -22,11 +21,11 @@
             <h1>Featured Today <br>TV Show Episodes</h1>
         </div>
         <nav>
-            <button id="show-list-btn" style="display: none;">Back to Shows List</button>
+            <button id="show-list-btn" class="hidden">Back to Shows List</button>
         </nav>
         <div class="inp-searches">
-            <input type="text" id="search-box" placeholder="Search episodes (A)..." aria-label="Search episodes" />
-            <input type="text" id="show-search-box" placeholder="Search shows(B)..." aria-label="Search shows" style="display: none;" />
+            <input type="text" id="search-box" placeholder="Search Episodes..." aria-label="Search episodes" />
+            <input type="text" id="show-search-box" placeholder="Search shows(B)..." aria-label="Search shows" class="hidden"/>
             <p id="episode-count"></p>
             <label>Select a TV Show:</label>
             <select id="show-dropdown">
@@ -37,12 +36,12 @@
         </div>
         <p id="episode-count"></p>
     </header>
-    <main>
-        <section id="shows-list"></section>
-        <div id="root"></div>
+      <main>
+        <section id="shows-list" class="hidden"></section>
+        <div id="root" class="hidden"></div>
       
           <template id="film-card">
-         <div>
+        
          <section class="film-card">
         <h2 class="name">Film title</h2>
         <h3 class="season">Season</h3>
