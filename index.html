@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -24,43 +25,45 @@
             <button id="show-list-btn" class="hidden">Back to Shows List</button>
         </nav>
         <div class="inp-searches">
-            <input type="text" id="search-box" placeholder="Search Episodes..." aria-label="Search episodes" />
-            <input type="text" id="show-search-box" placeholder="Search shows(B)..." aria-label="Search shows" class="hidden"/>
+            <input type="text" id="search-box" placeholder="Search Episodes..."  />
+            <input type="text" id="show-search-box" placeholder="Search Shows"  class="hidden"/>
             <p id="episode-count"></p>
-            <label>Select a TV Show:</label>
-            <select id="show-dropdown">
-                <option value="default">Select a TV Show</option>
-            </select>
-            <label for="episode-dropdown">Jump to Episode:</label>
-            <select id="episode-dropdown"></select>
+            <div class="select-container">
+              <label>Select a TV Show:
+                <select id="show-dropdown">
+                    <option value="default">Select a TV Show</option>
+                  </select>
+              </label>
+            </div>
+            <div class="select-container">
+              <label for="episode-dropdown">Jump to Episode:
+                <select id="episode-dropdown"></select>
+              </label>
+            </div>
         </div>
-        <p id="episode-count"></p>
     </header>
-      <main>
-        <section id="shows-list" class="hidden"></section>
-        <div id="root" class="hidden"></div>
-      
-          <template id="film-card">
-        
+    <main>
+      <section id="shows-list" class="hidden"></section>
+      <div id="root" class="hidden"></div>
+   </main>
+    <template id="film-card">
          <section class="film-card">
-        <h2 class="name">Film title</h2>
-        <h3 class="season">Season</h3>
-        <img class="image-medium" src="" alt="Episode Image" />
-        <a id="btn-info" class="url" target="_blank">+ INFO</a>
-        <div class="overview">
-            <p class="summary">Description</p>
-        </div>
-        <div class="show-info">
-            <p><strong>Genres:</strong> <span class="show-genres"></span></p>
-            <p><strong>Status:</strong> <span class="show-status"></span></p>
-          <p><strong>Rating:</strong> <span class="show-rating"></span></p>
+              <h2 class="name">Film title</h2>
+              <h3 class="season">Season</h3>
+              <img class="image-medium" src="" alt="Episode Image" />
+              <a id="btn-info" class="url" target="_blank">+ INFO</a>
+              <div class="overview">
+                  <p class="summary">Description</p>
+              </div>
+              <div class="show-info">
+                   <p><strong>Genres:</strong> <span class="show-genres"></span></p>
+                   <p><strong>Status:</strong> <span class="show-status"></span></p>
+                 <p><strong>Rating:</strong> <span class="show-rating"></span></p>
 
-            <p><strong>Runtime:</strong> <span class="show-runtime"></span> minutes</p>
-        </div>
-    </section>
-</template>
-        </div>
-    </main>
+                 <p><strong>Runtime:</strong> <span class="show-runtime"></span> minutes</p>
+             </div>
+        </section>
+    </template>
     <script src="script.js"></script>
     <script src="episodes.js"></script>
 

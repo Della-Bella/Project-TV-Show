@@ -3,16 +3,6 @@ let showCache = {};
 let allShows = [];
 let showsFetched = false; //flag to check if all shows are fetched
 
-function getClassByRate(vote) {
-   if (vote >= 8) {
-      return "green";
-   } else if (vote >= 5) {
-      return "orange";
-   } else {
-      return "red";
-   }
-}
-
 window.onload = setup;
 
 function setup() {
@@ -24,6 +14,10 @@ function setup() {
 }
 
 async function fetchAndDisplayShows() {
+   const showsListElement = document.getElementById("shows-list");
+   const rootElement = document.getElementById("root");
+   const searchBoxElement = document.getElementById("search-box");
+   const showSearchBoxElement = document.getElementById("show-search-box");
    if (showsFetched) {
       displayShows(allShows);
       return;
@@ -40,6 +34,12 @@ async function fetchAndDisplayShows() {
       allShows = shows;
       populateShowDropdown(shows);
       displayShows(shows);
+
+      //Make the correct elements visible.
+      showsListElement.classList.remove("hidden");
+      rootElement.classList.add("hidden");
+      searchBoxElement.classList.add("hidden");
+      showSearchBoxElement.classList.remove("hidden");
       showsFetched = true;
    } catch (error) {
       console.error("Error fetching shows:", error);
@@ -48,7 +48,9 @@ async function fetchAndDisplayShows() {
 }
 
 function displayShows(shows) {
+   console.log("Displaying shows:", shows); // Debugging 4
    const showsListElement = document.getElementById("shows-list");
+   showsListElement.innerHTML = ""; // Clear previous content
    const rootElement = document.getElementById("root");
    const searchBoxElement = document.getElementById("search-box");
    const showSearchBoxElement = document.getElementById("show-search-box");
@@ -58,12 +60,10 @@ function displayShows(shows) {
    // Hide episodes list
    rootElement.classList.add("hidden");
    // Show Show search input
-   showSearchBoxElement.classList.add("hidden");
+   showSearchBoxElement.classList.remove("hidden");
    // Hide episode search input
-   searchBoxElement.classList.remove("hidden");
+   searchBoxElement.classList.add("hidden");
    showListButton.classList.add("hidden"); // hide button on show list
-
-   showsListElement.innerHTML = "";
 
    const template = document.getElementById("film-card");
 
@@ -83,10 +83,10 @@ function displayShows(shows) {
       episodeCard.querySelector(".summary").innerHTML =
          show.summary || "No description available.";
       episodeCard.querySelector(".show-genres").textContent =
-         show.genres.join(", ");
+         show.genres?.join(", ") || "";
       episodeCard.querySelector(".show-status").textContent = show.status;
       episodeCard.querySelector(".show-rating").textContent =
-         show.rating.average || "N/A";
+         show.rating?.average || "N/A";
       episodeCard.querySelector(".show-runtime").textContent =
          show.runtime || "N/A";
 
@@ -177,10 +177,10 @@ function displayEpisodes(episodes, show) {
       // Update show information using the show details
       if (show) {
          episodeCard.querySelector(".show-genres").textContent =
-            show.genres.join(", ");
+            show.genres?.join(", ") || "";
          episodeCard.querySelector(".show-status").textContent = show.status;
          episodeCard.querySelector(".show-rating").textContent =
-            show.rating.average || "N/A";
+            show.rating?.average || "N/A";
          episodeCard.querySelector(".show-runtime").textContent =
             show.runtime || "N/A";
       }
@@ -203,9 +203,10 @@ function filterShows(shows, searchTerm) {
    return shows.filter((show) => {
       return (
          show.name.toLowerCase().includes(lowerCaseTerm) ||
-         show.genres.some((genre) =>
-            genre.toLowerCase().includes(lowerCaseTerm)
-         ) ||
+         (show.genres &&
+            show.genres.some((genre) =>
+               genre.toLowerCase().includes(lowerCaseTerm)
+            )) ||
          (show.summary && show.summary.toLowerCase().includes(lowerCaseTerm))
       );
    });
@@ -223,9 +224,13 @@ function handleSearch() {
 
 function handleShowSearch() {
    const showSearchInput = document.getElementById("show-search-box");
+   console.log("Show search input listener added"); // Debugging 1
+
    showSearchInput.addEventListener("input", (event) => {
       const searchTerm = event.target.value;
+      console.log("All shows before filter", allShows); //Debugging 2
       const filteredShows = filterShows(allShows, searchTerm);
+      console.log("Filtered shows:", filteredShows); // Debugging 3
       displayShows(filteredShows);
    });
 }
